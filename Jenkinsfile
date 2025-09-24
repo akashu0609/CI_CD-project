@@ -37,7 +37,7 @@ node {
                                   usernameVariable: 'DOCKER_USER',
                                   passwordVariable: 'DOCKER_PASS')]) {
     sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
-} // put PWD in the jenkins credentials to prevent crashing jenkins server
+} // put PWD in the jenkins credentials --> Global to prevent crashing jenkins server
 	
 }
     stage('Docker push'){
