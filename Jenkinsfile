@@ -49,16 +49,4 @@ node {
         sh "docker push akkistar/myapplication:${env.BUILD_NUMBER}"  //Best practice: push with a unique tag e.g., build number or git commit hash
   }
 
- post {
-        always {
-            echo "Cleaning up workspace..."
-            cleanWs()
-        }
-        success {
-            echo "✅ Build and push succeeded!"
-        }
-        failure {
-            echo "❌ Build failed. Please check logs."
-        }
-    }
 }
