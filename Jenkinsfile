@@ -33,7 +33,11 @@ node {
       echo "Docker Image Tag Name: ${dockerImageTag}"
 	  
         sh "docker images"
-        sh "docker login -u vickeyyvickey -p Hello@123" // put PWD
+        withCredentials([usernamePassword(credentialsId: 'dockerhub-creds',
+                                  usernameVariable: 'DOCKER_USER',
+                                  passwordVariable: 'DOCKER_PASS')]) {
+    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+} // put PWD in the jenkins credentials to prevent crashing jenkins server
 	
 }
     stage('Docker push'){
@@ -41,7 +45,7 @@ node {
 	// sh "docker images | awk '{print $3}' | awk 'NR==2'"
 	//sh echo "Enter the docker lattest imageID"
 	//sh "read imageid"
-	   sh "docker tag 0372c3175cd3   akash/myapplication" //must change your name and tag no
+	   sh "docker tag 7867c9280887   akash/myapplication" //must change your name and tag no
         sh "docker push   akash/myapplication"
   }
 }
