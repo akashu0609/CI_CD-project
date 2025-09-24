@@ -45,8 +45,8 @@ node {
 	// sh "docker images | awk '{print $3}' | awk 'NR==2'"
 	//sh echo "Enter the docker lattest imageID"
 	//sh "read imageid"
-	   sh "docker tag ${dockerImage.imageName()} akash/myapplication:${env.BUILD_NUMBER}" //use the dockerImage object you already built
-        sh "docker push akash/myapplication:${env.BUILD_NUMBER}"  //Best practice: push with a unique tag e.g., build number or git commit hash
+	   sh "docker tag ${dockerImage.imageName()} akkistar/myapplication:${env.BUILD_NUMBER}" //use the dockerImage object you already built
+        sh "docker push akkistar/myapplication:${env.BUILD_NUMBER}"  //Best practice: push with a unique tag e.g., build number or git commit hash
   }
 
  post {
