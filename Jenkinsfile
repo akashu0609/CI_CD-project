@@ -36,7 +36,7 @@ node {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-creds',
                                   usernameVariable: 'DOCKER_USER',
                                   passwordVariable: 'DOCKER_PASS')]) {
-    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+    sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
 } // put PWD in the jenkins credentials to prevent crashing jenkins server
 	
 }
@@ -45,7 +45,20 @@ node {
 	// sh "docker images | awk '{print $3}' | awk 'NR==2'"
 	//sh echo "Enter the docker lattest imageID"
 	//sh "read imageid"
-	   sh "docker tag 7867c9280887   akash/myapplication" //must change your name and tag no
-        sh "docker push   akash/myapplication"
+	   sh "docker tag ${dockerImage.imageName()} akash/myapplication:${env.BUILD_NUMBER}" //use the dockerImage object you already built
+        sh "docker push akash/myapplication:${env.BUILD_NUMBER}"  //Best practice: push with a unique tag e.g., build number or git commit hash
   }
+
+ post {
+        always {
+            echo "Cleaning up workspace..."
+            cleanWs()
+        }
+        success {
+            echo "✅ Build and push succeeded!"
+        }
+        failure {
+            echo "❌ Build failed. Please check logs."
+        }
+    }
 }
