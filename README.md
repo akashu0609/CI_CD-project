@@ -17,7 +17,7 @@ First of all to use jenkins with docker, we will have to know that as we are run
 build our services images, so first of all let's build a Jenkins image with docker installed inside it. Let's check the dockerfile to 
 build this Jenkins image with docker inside, you will just have to put this file into any folder, and run the docker build command.
 
-# Dockerfile for Jenkins
+# Dockerfile for CD in Jenkins
 ```
 from jenkins/jenkins:lts
 USER root
