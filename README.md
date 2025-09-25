@@ -35,14 +35,19 @@ RUN usermod -aG docker jenkins
 
 Just place this Dockerfile in any folder and run the following commands:
 
-$ docker image build -t jenkins-docker .
+``` 
+docker image build -t jenkins-docker .
+```
 
 Now that the docker image has already been built, we can run the Jenkins in a docker container with the command:
 
-$ docker container run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock jenkins-docker
+```
+docker container run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock jenkins-docker
+```
 
 # Building Spring Boot Application
 The Sample application built here has the maven jar plugin, so in order to build that as a jar, we just have to do the command:
 
-$ mvn clean install
-
+```
+mvn clean install
+```
